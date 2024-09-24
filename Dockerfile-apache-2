@@ -1,0 +1,12 @@
+# Use an official Apache image
+FROM httpd:latest
+
+
+# Copy your web application files into the Apache document root
+COPY ./webapp /usr/local/apache2/htdocs/
+
+# Expose port 80
+EXPOSE 80
+
+# Start Apache in the foreground
+CMD ["httpd", "-D", "FOREGROUND"]

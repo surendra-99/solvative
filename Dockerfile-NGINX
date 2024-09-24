@@ -1,0 +1,12 @@
+# Use an official NGINX image
+FROM nginx:latest
+
+
+# Copy your web application files into the NGINX html directory
+COPY ./webapp /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start NGINX in the foreground
+CMD ["nginx", "-g", "daemon off;"]

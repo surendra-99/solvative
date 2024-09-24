@@ -1,0 +1,56 @@
+---
+- name: Install Apache2, MySQL, and Docker on Ubuntu
+  hosts: your_target_host
+  become: yes
+  tasks:
+    - name: Update apt repository
+      apt:
+        update_cache: yes
+
+    - name: Install Apache2
+      apt:
+        name: apache2
+        state: present
+
+    - name: Install MySQL
+      apt:
+        name: mysql-server
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start and enable Apache2
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: Start and enable MySQL
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Pull Docker image
+      docker_image:
+        name: your_docker_image_name
+        tag: latest
+        source: pull
+
+    - name: Create a Docker container with ephemeral storage
+      docker_container:
+        name: your_container_name
+        image: your_docker_image_name
+        state: started
+        restart_policy: always
+        volumes:
+          - /path/on/host:/path/in/container:rw

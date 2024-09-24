@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile-apache  # Use Dockerfile-nginx if using NGINX
+    ports:
+      - "8080:80"  # Map host port 8080 to container port 80
+    volumes:
+      - ./webapp:/usr/local/apache2/htdocs  # Use /usr/share/nginx/html for NGINX
+    restart: always
